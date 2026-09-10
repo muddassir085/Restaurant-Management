@@ -34,13 +34,6 @@ function Home() {
                 >
                   Explore Menu
                 </Link>
-
-                <Link
-                  to="/menu"
-                  className="border border-teal-600 text-teal-600 px-7 py-3 rounded-lg font-semibold hover:bg-teal-50 transition text-center"
-                >
-                  Order Your Favourite
-                </Link>
               </div>
             </div>
 
