@@ -22,7 +22,7 @@ function MenuDetails() {
     const fetchMenuItem = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/menu-items/${id}`
+          `${import.meta.env.VITE_API_URL}/menu-items/${id}`
         );
 
         setItem(response.data.menuItem);
