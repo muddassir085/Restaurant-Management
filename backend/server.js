@@ -9,6 +9,7 @@ const menuRoutes = require("./routes/menuRoutes");
 const userRoutes = require("./routes/userRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/menu-items", menuRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.get("/", (req, res) => {
   res.send("TastyBites API is running...");

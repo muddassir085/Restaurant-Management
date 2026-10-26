@@ -7,6 +7,21 @@
     <title>BiryaniKing</title>
 
     <link rel="icon" type="image/png" href="/logo.png" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("biryaniking-theme");
+          const theme = savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.dataset.theme = theme;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

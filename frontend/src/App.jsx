@@ -1,7 +1,9 @@
+
 import {
   BrowserRouter,
   Routes,
   Route,
+  useLocation,
 } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -17,42 +19,45 @@ import AdminMenu from "./pages/AdminMenu";
 import AdminUsers from "./pages/AdminUsers";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Chatbot from "./components/Chatbot";
+import { ThemeProvider } from "./components/ThemeProvider";
+
+// Show chatbot only on customer-facing pages
+function CustomerChatbot() {
+  const { pathname } = useLocation();
+
+  const hideChatbot =
+    pathname.startsWith("/admin") ||
+    pathname === "/login" ||
+    pathname === "/register";
+
+  if (hideChatbot) {
+    return null;
+  }
+
+  return <Chatbot />;
+}
 
 function App() {
   return (
+    <ThemeProvider>
     <BrowserRouter>
       <Routes>
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<Home />} />
 
-        {/* ================= PUBLIC ROUTES ================= */}
-
-        <Route
-          path="/"
-          element={<Home />}
-        />
-
-        <Route
-          path="/menu"
-          element={<Menu />}
-        />
+        <Route path="/menu" element={<Menu />} />
 
         <Route
           path="/menu/:id"
           element={<MenuDetails />}
         />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+        <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+        <Route path="/register" element={<Register />} />
 
-
-        {/* ================= GUEST ROUTES ================= */}
-
+        {/* GUEST ROUTES */}
         <Route
           path="/cart"
           element={
@@ -62,9 +67,7 @@ function App() {
           }
         />
 
-
-        {/* ================= ADMIN ROUTES ================= */}
-
+        {/* ADMIN ROUTES */}
         <Route
           path="/admin"
           element={
@@ -91,9 +94,12 @@ function App() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
+
+      {/* AI Chatbot */}
+      <CustomerChatbot />
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

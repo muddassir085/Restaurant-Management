@@ -32,6 +32,18 @@ const menuItemSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+    dietaryType: {
+      type: String,
+      enum: ["veg", "non-veg", "vegan", "unknown"],
+      default: "unknown",
+    },
+
+    spiceLevel: {
+      type: String,
+      enum: ["mild", "medium", "hot","sweet", "unknown"],
+      default: "unknown",
+    },
   },
   {
     timestamps: true,

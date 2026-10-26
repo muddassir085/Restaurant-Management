@@ -44,7 +44,7 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="app-shell min-h-screen">
         <AdminNavbar />
 
         <div className="max-w-7xl mx-auto px-5 py-20 text-center">
@@ -57,18 +57,18 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="app-shell min-h-screen">
       <AdminNavbar />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-8 py-8 md:py-12">
 
         {/* Header */}
         <div>
-          <p className="text-teal-600 font-semibold">
+          <p className="eyebrow">
             ADMIN PANEL
           </p>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mt-1">
             Dashboard
           </h1>
 
@@ -89,7 +89,7 @@ function AdminDashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
             {/* Menu Items */}
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+            <div className="glass-card page-enter rounded-2xl p-6">
 
               <div className="flex items-center justify-between">
                 <div>
@@ -97,7 +97,7 @@ function AdminDashboard() {
                     Total Menu Items
                   </p>
 
-                  <p className="text-4xl font-bold text-gray-900 mt-2">
+                  <p className="text-4xl font-black text-slate-900 mt-2">
                     {stats.totalMenuItems}
                   </p>
                 </div>
@@ -113,7 +113,7 @@ function AdminDashboard() {
             </div>
 
             {/* Guests */}
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+            <div className="glass-card page-enter reveal-delay-1 rounded-2xl p-6">
 
               <div className="flex items-center justify-between">
                 <div>
@@ -121,7 +121,7 @@ function AdminDashboard() {
                     Total Guests
                   </p>
 
-                  <p className="text-4xl font-bold text-gray-900 mt-2">
+                  <p className="text-4xl font-black text-slate-900 mt-2">
                     {stats.totalGuests}
                   </p>
                 </div>
@@ -137,7 +137,7 @@ function AdminDashboard() {
             </div>
 
             {/* Orders */}
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6">
+            <div className="glass-card page-enter reveal-delay-2 rounded-2xl p-6">
 
               <div className="flex items-center justify-between">
                 <div>
@@ -145,7 +145,7 @@ function AdminDashboard() {
                     Total Orders
                   </p>
 
-                  <p className="text-4xl font-bold text-gray-900 mt-2">
+                  <p className="text-4xl font-black text-slate-900 mt-2">
                     {stats.totalOrders}
                   </p>
                 </div>
@@ -174,7 +174,7 @@ function AdminDashboard() {
 
             <a
               href="/admin/menu"
-              className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-teal-200 transition"
+              className="glass-card rounded-2xl p-5"
             >
               <div className="text-3xl">🍽️</div>
 
@@ -189,7 +189,7 @@ function AdminDashboard() {
 
             <a
               href="/admin/users"
-              className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-teal-200 transition"
+              className="glass-card rounded-2xl p-5"
             >
               <div className="text-3xl">👥</div>
 

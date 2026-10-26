@@ -52,15 +52,17 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-5 py-10">
+    <div className="app-shell relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10">
+      <div className="absolute -left-24 top-12 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl" />
+      <div className="absolute -right-24 bottom-12 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
 
-      <div className="w-full max-w-md">
+      <div className="page-enter relative w-full max-w-md">
 
         {/* Logo */}
         <div className="text-center mb-7">
           <Link
             to="/"
-            className="text-3xl font-bold text-teal-600"
+            className="text-3xl font-black tracking-tight text-teal-700"
           >
             BiryaniKing 🍗
           </Link>
@@ -71,9 +73,9 @@ function Register() {
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sm:p-8">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
 
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-black tracking-tight text-slate-900">
             Create Account
           </h1>
 
@@ -172,7 +174,7 @@ function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading
                 ? "Creating Account..."

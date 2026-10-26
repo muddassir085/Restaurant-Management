@@ -9,6 +9,8 @@ const createMenuItem = async (req, res) => {
       category,
       price,
       availability,
+      dietaryType,
+      spiceLevel,
     } = req.body;
 
     if (!name || !description || !category || price === undefined) {
@@ -50,6 +52,8 @@ const createMenuItem = async (req, res) => {
       price,
       availability,
       image: imageUrl,
+      dietaryType: dietaryType || "unknown",
+      spiceLevel: spiceLevel || "unknown",
     });
 
     res.status(201).json({
@@ -130,6 +134,8 @@ const updateMenuItem = async (req, res) => {
       category,
       price,
       availability,
+      dietaryType,
+      spiceLevel,
     } = req.body;
 
     // Update text/data fields
@@ -141,6 +147,12 @@ const updateMenuItem = async (req, res) => {
       availability !== undefined
         ? availability
         : menuItem.availability;
+
+    menuItem.dietaryType =
+      dietaryType ?? menuItem.dietaryType ?? "unknown";
+
+    menuItem.spiceLevel =
+      spiceLevel ?? menuItem.spiceLevel ?? "unknown";
 
     // Upload new image if provided
     if (req.file) {

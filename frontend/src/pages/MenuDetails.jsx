@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import PublicNavbar from "../components/PublicNavbar";
+import PublicFooter from "../components/PublicFooter";
 import { addToCart } from "../services/cartService";
 
 function MenuDetails() {
@@ -49,6 +50,51 @@ function MenuDetails() {
     setQuantity((prev) => Math.max(1, prev - 1));
   };
 
+  const getDietaryLabel = (dietaryType) => {
+    switch (dietaryType) {
+      case "veg":
+        return "Vegetarian";
+      case "non-veg":
+        return "Non-Vegetarian";
+      case "vegan":
+        return "Vegan";
+      default:
+        return "Not specified";
+    }
+  };
+
+  const getDietaryIcon = (dietaryType) => {
+    switch (dietaryType) {
+      case "veg":
+        return "🟢";
+      case "non-veg":
+        return "🔴";
+      case "vegan":
+        return "🌱";
+      default:
+        return "";
+    }
+  };
+
+  const getSpiceLabel = (spiceLevel) => {
+    switch (spiceLevel) {
+      case "mild":
+        return "Mild";
+      case "medium":
+        return "Medium";
+      case "hot":
+        return "Hot";
+      case "sweet":
+        return "Sweet";
+      default:
+        return "Not specified";
+    }
+  };
+
+  const getSpiceIcon = (spiceLevel) => {
+    return spiceLevel === "sweet" ? "🍯" : "🌶️";
+  };
+
   const handleAddToCart = async () => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(
@@ -89,7 +135,7 @@ function MenuDetails() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="app-shell flex min-h-screen flex-col">
         <PublicNavbar />
 
         <div className="max-w-7xl mx-auto px-5 py-20 text-center">
@@ -103,7 +149,7 @@ function MenuDetails() {
 
   if (error && !item) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="app-shell flex min-h-screen flex-col">
         <PublicNavbar />
 
         <div className="max-w-7xl mx-auto px-5 py-20 text-center">
@@ -122,8 +168,11 @@ function MenuDetails() {
     );
   }
 
+  const dietaryType = (item.dietaryType || "unknown").toLowerCase();
+  const spiceLevel = (item.spiceLevel || "unknown").toLowerCase();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="app-shell flex min-h-screen flex-col">
       <PublicNavbar />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-8 py-8 md:py-12">
@@ -131,18 +180,18 @@ function MenuDetails() {
         {/* Back */}
         <Link
           to="/menu"
-          className="inline-flex items-center text-teal-600 font-medium hover:text-teal-700"
+          className="btn-secondary w-fit px-4 py-2 text-sm"
         >
           ← Back to Menu
         </Link>
 
         {/* Product Section */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mt-6">
+        <div className="glass-panel page-enter rounded-3xl overflow-hidden mt-6">
 
           <div className="grid grid-cols-1 lg:grid-cols-2">
 
             {/* Image */}
-            <div className="bg-teal-50">
+            <div className="bg-teal-50/60">
 
               {item.image ? (
                 <img
@@ -164,17 +213,17 @@ function MenuDetails() {
             <div className="p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
 
               {/* Category */}
-              <p className="text-teal-600 font-semibold">
+              <p className="eyebrow">
                 {item.category}
               </p>
 
               {/* Name */}
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-2">
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mt-2">
                 {item.name}
               </h1>
 
               {/* Price */}
-              <p className="text-3xl font-bold text-teal-600 mt-5">
+              <p className="text-3xl font-black text-teal-700 mt-5">
                 ₹{item.price}
               </p>
 
@@ -182,6 +231,27 @@ function MenuDetails() {
               <p className="text-gray-600 leading-relaxed mt-6">
                 {item.description}
               </p>
+
+              {/* Dietary Type + Spice Level */}
+              <div className="flex flex-wrap gap-2 mt-6">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    dietaryType === "veg"
+                      ? "bg-green-100 text-green-700"
+                      : dietaryType === "non-veg"
+                        ? "bg-red-100 text-red-700"
+                        : dietaryType === "vegan"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  {getDietaryIcon(dietaryType)} {getDietaryLabel(dietaryType)}
+                </span>
+
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                  {getSpiceIcon(spiceLevel)} {getSpiceLabel(spiceLevel)}
+                </span>
+              </div>
 
               {/* Availability */}
               <div className="mt-6">
@@ -255,7 +325,7 @@ function MenuDetails() {
                 <button
                   onClick={handleAddToCart}
                   disabled={!item.availability || adding}
-                  className="flex-1 bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-primary flex-1 px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {adding
                     ? "Adding..."
@@ -264,7 +334,7 @@ function MenuDetails() {
 
                 <Link
                   to="/cart"
-                  className="flex-1 border border-teal-600 text-teal-600 px-6 py-3 rounded-lg font-semibold text-center hover:bg-teal-50 transition"
+                  className="btn-secondary flex-1 px-6 py-3 text-center"
                 >
                   View Cart
                 </Link>
@@ -276,6 +346,7 @@ function MenuDetails() {
         </div>
 
       </main>
+      <PublicFooter />
     </div>
   );
 }

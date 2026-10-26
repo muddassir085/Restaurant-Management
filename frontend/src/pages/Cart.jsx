@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PublicNavbar from "../components/PublicNavbar";
+import PublicFooter from "../components/PublicFooter";
 import {
   getCart,
   updateCartItem,
@@ -138,7 +139,7 @@ function Cart() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="app-shell flex min-h-screen flex-col">
         <PublicNavbar />
 
         <div className="max-w-7xl mx-auto px-5 py-20 text-center">
@@ -151,7 +152,7 @@ function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="app-shell flex min-h-screen flex-col">
       <PublicNavbar />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-8 py-8 md:py-12">
@@ -159,11 +160,11 @@ function Cart() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="text-teal-600 font-semibold">
+            <p className="eyebrow">
               YOUR CART
             </p>
 
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mt-1">
               Your Favourite Food
             </h1>
 
@@ -177,7 +178,7 @@ function Cart() {
           {cart?.items?.length > 0 && (
             <button
               onClick={handleClearCart}
-              className="text-red-600 font-medium hover:text-red-700"
+              className="rounded-xl border border-red-200 bg-white/60 px-4 py-2 text-sm font-bold text-red-600 transition hover:bg-red-50"
             >
               Clear Cart
             </button>
@@ -193,7 +194,7 @@ function Cart() {
 
         {/* Empty Cart */}
         {!cart?.items?.length ? (
-          <div className="bg-white border border-gray-100 rounded-2xl shadow-sm mt-8 px-6 py-16 text-center">
+          <div className="glass-panel page-enter rounded-3xl mt-8 px-6 py-16 text-center">
             <div className="text-7xl">🛒</div>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-5">
@@ -206,7 +207,7 @@ function Cart() {
 
             <Link
               to="/menu"
-              className="inline-block mt-7 bg-teal-600 text-white px-7 py-3 rounded-lg font-semibold hover:bg-teal-700 transition"
+              className="btn-primary mt-7 px-7 py-3"
             >
               Explore Menu
             </Link>
@@ -228,7 +229,7 @@ function Cart() {
                 return (
                   <div
                     key={menuItem._id}
-                    className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4 sm:p-5"
+                    className="glass-card page-enter rounded-2xl p-4 sm:p-5"
                   >
                     <div className="flex flex-col sm:flex-row gap-5">
 
@@ -320,7 +321,7 @@ function Cart() {
                           </div>
 
                           {/* Item Total */}
-                          <p className="text-xl font-bold text-teal-600">
+                          <p className="text-xl font-black text-teal-700">
                             ₹{itemTotal}
                           </p>
 
@@ -334,7 +335,7 @@ function Cart() {
 
             {/* Order Summary */}
             <div>
-              <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 lg:sticky lg:top-24">
+              <div className="glass-panel rounded-3xl p-6 lg:sticky lg:top-24">
 
                 <h2 className="text-xl font-bold text-gray-900">
                   Order Summary
@@ -366,14 +367,14 @@ function Cart() {
                     Total
                   </span>
 
-                  <span className="text-2xl font-bold text-teal-600">
+                  <span className="text-2xl font-black text-teal-700">
                     ₹{totalPrice}
                   </span>
                 </div>
 
                 <button
                   disabled
-                  className="w-full mt-6 bg-teal-600 text-white py-3 rounded-lg font-semibold opacity-50 cursor-not-allowed"
+                  className="btn-primary w-full mt-6 py-3 opacity-50 cursor-not-allowed"
                 >
                   Proceed to Checkout
                 </button>
@@ -395,6 +396,7 @@ function Cart() {
           </div>
         )}
       </main>
+      <PublicFooter />
     </div>
   );
 }

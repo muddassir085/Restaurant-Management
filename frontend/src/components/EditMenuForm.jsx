@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { updateMenuItem } from "../services/menuService";
 
@@ -14,6 +15,12 @@ function EditMenuForm({
   const [price, setPrice] = useState(item.price);
   const [availability, setAvailability] = useState(
     item.availability
+  );
+  const [dietaryType, setDietaryType] = useState(
+    item.dietaryType || "unknown"
+  );
+  const [spiceLevel, setSpiceLevel] = useState(
+    item.spiceLevel || "unknown"
   );
 
   const [image, setImage] = useState(null);
@@ -45,6 +52,8 @@ function EditMenuForm({
       formData.append("category", category);
       formData.append("price", price);
       formData.append("availability", availability);
+      formData.append("dietaryType", dietaryType);
+      formData.append("spiceLevel", spiceLevel);
 
       if (image) {
         formData.append("image", image);
@@ -69,27 +78,25 @@ function EditMenuForm({
   };
 
   return (
-    <div className="bg-white border border-teal-100 rounded-2xl shadow-sm p-6 sm:p-8">
+    <div className="glass-panel page-enter rounded-3xl p-6 sm:p-8">
 
       <div className="flex items-center justify-between gap-4 mb-7">
-
         <div>
-          <p className="text-teal-600 font-semibold text-sm">
+          <p className="eyebrow">
             EDIT ITEM
           </p>
 
-          <h2 className="text-2xl font-bold text-gray-900 mt-1">
+          <h2 className="text-2xl font-black tracking-tight text-slate-900 mt-1">
             Update Menu Item
           </h2>
         </div>
 
         <button
           onClick={onCancel}
-          className="text-gray-400 hover:text-gray-700 text-xl"
+            className="rounded-xl px-2 py-1 text-xl text-slate-400 transition hover:bg-white/70 hover:text-slate-700"
         >
           ✕
         </button>
-
       </div>
 
       <form
@@ -160,10 +167,48 @@ function EditMenuForm({
           />
         </div>
 
+        {/* Dietary Type */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Dietary Type
+          </label>
+
+          <select
+            value={dietaryType}
+            onChange={(e) => setDietaryType(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+          >
+            <option value="unknown">Unknown</option>
+            <option value="veg">Vegetarian</option>
+            <option value="non-veg">Non-Vegetarian</option>
+            <option value="vegan">Vegan</option>
+          </select>
+        </div>
+
+        
+        {/* Spice Level */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Taste / Spice Level
+          </label>
+
+          <select
+            value={spiceLevel}
+            onChange={(e) => setSpiceLevel(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+          >
+            <option value="unknown">Unknown</option>
+            <option value="mild">Mild</option>
+            <option value="medium">Medium</option>
+            <option value="hot">Hot</option>
+            <option value="sweet">Sweet 🍯</option>
+          </select>
+        </div>
+
+
         {/* Preview */}
         {preview && (
           <div className="md:col-span-2">
-
             <p className="text-sm font-medium text-gray-700 mb-2">
               Image Preview
             </p>
@@ -173,7 +218,6 @@ function EditMenuForm({
               alt="Preview"
               className="w-40 h-32 object-cover rounded-xl border border-gray-200"
             />
-
           </div>
         )}
 
@@ -186,9 +230,7 @@ function EditMenuForm({
           <textarea
             rows="4"
             value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
+            onChange={(e) => setDescription(e.target.value)}
             required
             className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none resize-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
           />
@@ -196,9 +238,7 @@ function EditMenuForm({
 
         {/* Availability */}
         <div className="md:col-span-2">
-
           <label className="flex items-center gap-3 cursor-pointer">
-
             <input
               type="checkbox"
               checked={availability}
@@ -211,9 +251,7 @@ function EditMenuForm({
             <span className="text-sm font-medium text-gray-700">
               Item is available
             </span>
-
           </label>
-
         </div>
 
         {/* Error */}
@@ -225,11 +263,10 @@ function EditMenuForm({
 
         {/* Buttons */}
         <div className="md:col-span-2 flex flex-col sm:flex-row gap-3 pt-2">
-
           <button
             type="submit"
             disabled={loading}
-            className="bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50"
+            className="btn-primary px-6 py-3 disabled:opacity-50"
           >
             {loading ? "Updating..." : "Update Menu Item"}
           </button>
@@ -237,11 +274,10 @@ function EditMenuForm({
           <button
             type="button"
             onClick={onCancel}
-            className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50"
+            className="btn-secondary px-6 py-3 text-slate-700"
           >
             Cancel
           </button>
-
         </div>
 
       </form>

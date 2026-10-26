@@ -22,10 +22,7 @@ function Login() {
       const data = await loginUser(email, password);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify(data.user)
-      );
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       if (data.user.role === "admin") {
         navigate("/admin");
@@ -35,38 +32,33 @@ function Login() {
     } catch (error) {
       console.log("Login Error:", error);
 
-      setError(
-        error.response?.data?.message ||
-          "Invalid email or password"
-      );
+      setError(error.response?.data?.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-5 py-10">
+    <div className="app-shell relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-10">
+      <div className="absolute -left-24 top-12 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl" />
+      <div className="absolute -right-24 bottom-12 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
 
-      <div className="w-full max-w-md">
-
+      <div className="page-enter relative w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-7">
           <Link
             to="/"
-            className="text-3xl font-bold text-teal-600"
+            className="inline-block text-4xl sm:text-5xl font-black tracking-tight text-teal-700 transition-all duration-300 ease-out hover:scale-110 hover:text-teal-600 hover:drop-shadow-md active:scale-95"
           >
-            BiryaniKing 🍗
+            BiryaniKing <span>🍗</span>
           </Link>
 
-          <p className="text-gray-500 mt-2">
-            Welcome back! Login to continue.
-          </p>
+          <p className="text-gray-500 mt-2">Welcome back! Login to continue.</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-6 sm:p-8">
-
-          <h1 className="text-2xl font-bold text-gray-900">
+        <div className="glass-panel rounded-3xl p-6 sm:p-8">
+          <h1 className="text-2xl font-black tracking-tight text-slate-900">
             Login
           </h1>
 
@@ -74,11 +66,7 @@ function Login() {
             Enter your account details
           </p>
 
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-5 mt-7"
-          >
-
+          <form onSubmit={handleSubmit} className="space-y-5 mt-7">
             {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -105,9 +93,7 @@ function Login() {
                 type="password"
                 placeholder="Enter your password"
                 value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
               />
@@ -124,11 +110,10 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Logging in..." : "Login"}
             </button>
-
           </form>
 
           {/* Register */}
@@ -141,19 +126,14 @@ function Login() {
               Create Account
             </Link>
           </p>
-
         </div>
 
         {/* Back Home */}
         <div className="text-center mt-5">
-          <Link
-            to="/"
-            className="text-sm text-gray-500 hover:text-teal-600"
-          >
+          <Link to="/" className="text-sm text-gray-500 hover:text-teal-600">
             ← Back to Home
           </Link>
         </div>
-
       </div>
     </div>
   );

@@ -71,18 +71,18 @@ function AdminUsers() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="app-shell min-h-screen">
       <AdminNavbar />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-8 py-8 md:py-12">
 
         {/* Header */}
         <div>
-          <p className="text-teal-600 font-semibold">
+          <p className="eyebrow">
             ADMIN PANEL
           </p>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 mt-1">
             Manage Users
           </h1>
 
@@ -93,7 +93,7 @@ function AdminUsers() {
 
         {/* User Count */}
         {!loading && (
-          <div className="mt-6 inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-2 rounded-full text-sm font-medium">
+          <div className="glass-panel mt-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold text-teal-700">
             👥 {users.length}{" "}
             {users.length === 1 ? "User" : "Users"}
           </div>
@@ -115,7 +115,7 @@ function AdminUsers() {
           </div>
         ) : users.length === 0 ? (
           /* Empty */
-          <div className="bg-white border border-gray-100 rounded-2xl shadow-sm mt-8 py-16 text-center">
+          <div className="glass-panel mt-8 rounded-3xl py-16 text-center">
 
             <div className="text-6xl">
               👥
@@ -133,13 +133,13 @@ function AdminUsers() {
         ) : (
           <>
             {/* Desktop Table */}
-            <div className="hidden md:block bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden mt-8">
+            <div className="glass-panel hidden md:block overflow-hidden rounded-3xl mt-8">
 
               <div className="overflow-x-auto">
 
                 <table className="w-full">
 
-                  <thead className="bg-gray-50 border-b border-gray-200">
+                  <thead className="bg-white/65 border-b border-white/80">
                     <tr>
                       <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
                         User
@@ -168,7 +168,7 @@ function AdminUsers() {
                     {users.map((user) => (
                       <tr
                         key={user._id}
-                        className="hover:bg-gray-50 transition"
+                        className="transition hover:bg-white/65"
                       >
 
                         {/* User */}
@@ -249,7 +249,7 @@ function AdminUsers() {
               {users.map((user) => (
                 <div
                   key={user._id}
-                  className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5"
+                  className="glass-card rounded-2xl p-5"
                 >
 
                   <div className="flex items-center justify-between gap-4">
